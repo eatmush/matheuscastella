@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto: mesa de escritório em compensado com saia</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root {
+  --bg: #fbfaf7; --fg: #1d1c1a; --muted: #5f5c55; --line: #dcd8cf; --head: #f1eee7;
+  --accent: #a0522d;
+  --tampo: #ecd9b8; --tampo-s: #b08d57; --sarrafo: #d9b98a; --sarrafo-s: #8a6a3d;
+  --pe: #b9875a; --pe-s: #6e4c2c; --bloco: #c79b6d; --metal: #555;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #18181a; --fg: #ebe9e4; --muted: #a8a49b; --line: #3a3936; --head: #232325;
+    --accent: #e0a07a;
+    --tampo: #4a3e2c; --tampo-s: #9c8460; --sarrafo: #6b5639; --sarrafo-s: #c4a272;
+    --pe: #8a6440; --pe-s: #e0b98c; --bloco: #7a5b3a; --metal: #cfcfcf;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 800px; margin: 0 auto; padding: 32px 20px 56px; }
+h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 6px; }
+.meta { color: var(--muted); margin: 0 0 28px; font-size: .95rem; }
+h2 { font-size: 1.3rem; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+p { margin: 0 0 14px; }
+.tw { overflow-x: auto; margin: 0 0 16px; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { background: var(--head); font-weight: 600; }
+ol { padding-left: 1.4em; }
+ol li { margin-bottom: 8px; }
+ul.tasks { list-style: none; padding: 0; }
+ul.tasks li { margin-bottom: 10px; }
+ul.tasks label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+ul.tasks input { margin-top: .3em; width: 1.05em; height: 1.05em; flex: none; accent-color: var(--accent); }
+ul.tasks input:checked + span { color: var(--muted); text-decoration: line-through; }
+figure { margin: 8px 0 18px; }
+figure .vista { border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+figure .vista h3 { font-size: .95rem; margin: 0 0 8px; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption { color: var(--muted); font-size: .9rem; }
+@media screen and (max-width: 680px) {
+  figure .vista { overflow-x: auto; }
+  figure svg { min-width: 620px; }
+  figure .vista::after { content: "arraste para o lado para ver o esquema inteiro"; display: block; font-size: .8rem; color: var(--muted); margin-top: 6px; }
+}
+.nota { font-style: italic; }
+/* diagrama */
+svg .tampo { fill: var(--tampo); stroke: var(--tampo-s); stroke-width: 1.2; }
+svg .sarrafo { fill: var(--sarrafo); stroke: var(--sarrafo-s); stroke-width: 1; }
+svg .pe { fill: var(--pe); stroke: var(--pe-s); stroke-width: 1.2; }
+svg .bloco { fill: var(--bloco); stroke: var(--pe-s); stroke-width: 1; }
+svg .escondido, svg .escondido-l { fill: none; stroke: var(--pe-s); stroke-width: 1.4; stroke-dasharray: 4 3; }
+svg .quebra { fill: none; stroke: var(--pe-s); stroke-width: 1.2; }
+svg .parafuso, svg .inclinado { stroke: var(--metal); stroke-width: 1.6; }
+svg .inclinado { stroke-dasharray: 3 2; }
+svg .cabeca { fill: var(--metal); }
+svg .furo { fill: var(--bg); stroke: var(--metal); stroke-width: 1.2; }
+svg .cruz { stroke: var(--metal); stroke-width: 1; }
+svg .cota, svg .chamada { stroke: var(--muted); stroke-width: .8; }
+svg .rot { fill: var(--fg); font: 12px system-ui, sans-serif; }
+svg .rot2 { fill: var(--muted); font: 11px system-ui, sans-serif; }
+/* impressão A4 */
+@page { size: A4; margin: 16mm 14mm; }
+@media print {
+  :root { --bg: #fff; --fg: #000; --muted: #444; --line: #bbb; --head: #eee; color-scheme: light;
+    --tampo: #ecd9b8; --tampo-s: #b08d57; --sarrafo: #d9b98a; --sarrafo-s: #8a6a3d; --pe: #b9875a; --pe-s: #6e4c2c; --bloco: #c79b6d; --metal: #555; }
+  body { font-size: 11pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  main { max-width: none; padding: 0; }
+  h2 { margin-top: 22px; break-after: avoid; page-break-after: avoid; }
+  table, tr, figure .vista, ul.tasks li, ol li { break-inside: avoid; page-break-inside: avoid; }
+  .tw { overflow: visible; }
+  thead { display: table-header-group; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Projeto: mesa de escritório em compensado com saia</h1>
+<p class="meta">Nov 4, 2026 · @Matheus Stathacos e Castella</p>
+
+<h2>Resumo</h2>
+<p>Mesa de escritório de 220 × 70 cm e 75 cm de altura, com tampo de compensado multilaminado de 15 mm reforçado por uma saia de sarrafos de pinus e quatro pés de madeira nos cantos. A mesma chapa rende também três prateleiras de 220 × 29,5 cm.</p>
+<div class="tw"><table>
+<thead><tr><th>Item</th><th>Medida</th></tr></thead>
+<tbody>
+<tr><td>Tampo</td><td>220 × 70 cm, compensado multilaminado 15 mm</td></tr>
+<tr><td>Altura total</td><td>75 cm</td></tr>
+<tr><td>Saia (requadro sob o tampo)</td><td>212 × 62 cm por fora, sarrafo 2,5 × 7 cm, recuada 4 cm da borda</td></tr>
+<tr><td>Pés</td><td>4 peças de 7 × 7 × 73,5 cm</td></tr>
+<tr><td>Altura livre sob a saia</td><td>cerca de 66 cm</td></tr>
+<tr><td>Prateleiras</td><td>3 peças de 220 × 29,5 cm, compensado 15 mm</td></tr>
+</tbody></table></div>
+<p>Por que a saia: um tampo de 15 mm com pés só nos cantos fica com um vão de cerca de 2,1 m. Sozinho, ele envergaria cerca de 9 mm só com o próprio peso e 3–4 cm com o uso, além de balançar. Colada e parafusada por baixo, a saia de 7 cm funciona como uma viga e deixa o conjunto firme.</p>
+
+<h2>Plano de corte da chapa</h2>
+<p>Uma chapa de 2200 × 1600 mm, cortada no sentido do comprimento, rende todas as peças de compensado.</p>
+<div class="tw"><table>
+<thead><tr><th>Peça</th><th>Largura × comprimento</th><th>Quantidade</th></tr></thead>
+<tbody>
+<tr><td>Tampo da mesa</td><td>700 × 2200 mm</td><td>1</td></tr>
+<tr><td>Prateleira</td><td>295 × 2200 mm</td><td>3</td></tr>
+</tbody></table></div>
+<p>O plano está justo: as peças somam 1585 mm e os três cortes de serra tiram mais uns 10 mm, chegando a cerca de 1595 dos 1600 mm. Se a madeireira precisar refilar as bordas da chapa, as prateleiras podem ficar com 290 mm. Os veios da lâmina externa correm no sentido dos 2,2 m, a direção em que o compensado é mais rígido (confirmado com a madeireira).</p>
+
+<h2>Lista de material</h2>
+<p>As medidas consideram tampo de 220 × 70 cm, saia recuada 4 cm da borda e mesa com 75 cm de altura.</p>
+<div class="tw"><table>
+<thead><tr><th>Item</th><th>Especificação</th><th>Quantidade</th></tr></thead>
+<tbody>
+<tr><td>Chapa</td><td>Compensado multilaminado 15 mm, 2200 × 1600 mm, cortada conforme o plano</td><td>1</td></tr>
+<tr><td>Saia: frente e fundo</td><td>Sarrafo de pinus aplainado 2,5 × 7 cm, 212 cm</td><td>2</td></tr>
+<tr><td>Saia: laterais e travessa central</td><td>Sarrafo de pinus aplainado 2,5 × 7 cm, 57 cm</td><td>3</td></tr>
+<tr><td>Pés</td><td>Pinus ou eucalipto aplainado 7 × 7 cm, 73,5 cm (ou 5 × 5 cm, se quiser mais finos)</td><td>4</td></tr>
+<tr><td>Blocos de canto</td><td>Sobra de sarrafo, cerca de 15 cm, pontas cortadas a 45°</td><td>4</td></tr>
+<tr><td>Cola</td><td>PVA (cola branca de madeira)</td><td>1 frasco</td></tr>
+<tr><td>Parafusos saia → tampo</td><td>3,5 cm, a cada 20–25 cm</td><td>cerca de 30</td></tr>
+<tr><td>Parafusos saia → pés e blocos → saia</td><td>5 cm</td><td>cerca de 32, mais 12 de 6 cm para montar o requadro</td></tr>
+<tr><td>Parafusos dos blocos aos pés</td><td>Sextavado 8 × 80 mm (com arruela)</td><td>4</td></tr>
+<tr><td>Lixas</td><td>Grãos 120, 180 e 220 (e 320 entre demãos)</td><td>algumas folhas de cada</td></tr>
+<tr><td>Acabamento</td><td>Verniz PU à base d'água, fosco</td><td>cerca de 1 litro</td></tr>
+</tbody></table></div>
+<p>Peça para a madeireira cortar os sarrafos e os pés no tamanho: os cortes ficam retos e você economiza o trabalho mais chato. As quantidades de parafusos e verniz são estimativas; vale comprar uma pequena folga.</p>
+
+<h2>Esquema da saia e dos pés</h2>
+<figure>
+  <div class="vista"><h3>1. Vista por baixo do tampo</h3><svg viewBox="0 0 804 300" role="img" aria-label="Vista por baixo do tampo: requadro de sarrafos recuado 4 cm, travessa central, pé de 7 × 7 cm em cada canto interno e bloco de canto diagonal ao lado de cada pé"><rect class="tampo" x="70" y="46" width="704.0" height="224.0"/><rect class="sarrafo" x="82.8" y="58.8" width="678.4" height="8.0"/><rect class="sarrafo" x="82.8" y="249.2" width="678.4" height="8.0"/><rect class="sarrafo" x="82.8" y="66.8" width="8.0" height="182.4"/><rect class="sarrafo" x="753.2" y="66.8" width="8.0" height="182.4"/><rect class="sarrafo" x="418.0" y="66.8" width="8.0" height="182.4"/><rect class="pe" x="90.8" y="66.8" width="22.4" height="22.4"/><polygon class="bloco" points="135.6,66.8 146.9,66.8 90.8,122.9 90.8,111.6"/><line class="parafuso" x1="116.0" y1="92.0" x2="113.2" y2="89.2"/><circle class="cabeca" cx="116.0" cy="92.0" r="2.4"/><rect class="pe" x="730.8" y="66.8" width="22.4" height="22.4"/><polygon class="bloco" points="708.4,66.8 697.1,66.8 753.2,122.9 753.2,111.6"/><line class="parafuso" x1="728.0" y1="92.0" x2="730.8" y2="89.2"/><circle class="cabeca" cx="728.0" cy="92.0" r="2.4"/><rect class="pe" x="90.8" y="226.8" width="22.4" height="22.4"/><polygon class="bloco" points="135.6,249.2 146.9,249.2 90.8,193.1 90.8,204.4"/><line class="parafuso" x1="116.0" y1="224.0" x2="113.2" y2="226.8"/><circle class="cabeca" cx="116.0" cy="224.0" r="2.4"/><rect class="pe" x="730.8" y="226.8" width="22.4" height="22.4"/><polygon class="bloco" points="708.4,249.2 697.1,249.2 753.2,193.1 753.2,204.4"/><line class="parafuso" x1="728.0" y1="224.0" x2="730.8" y2="226.8"/><circle class="cabeca" cx="728.0" cy="224.0" r="2.4"/><line class="cota" x1="70" y1="30" x2="774.0" y2="30"/><text class="rot" x="422.0" y="25" text-anchor="middle">tampo 220 cm</text><line class="cota" x1="54" y1="46" x2="54" y2="270.0"/><text class="rot" x="49" y="158.0" text-anchor="middle" transform="rotate(-90 49 158.0)">70 cm</text><text class="rot" x="422.0" y="286.0" text-anchor="middle">frente</text><text class="rot" x="266.0" y="152.0" text-anchor="middle">requadro da saia</text><text class="rot2" x="266.0" y="167.0" text-anchor="middle">212 × 62 cm por fora · recuo de 4 cm</text><text class="rot" x="432.0" y="152.0">travessa central</text><text class="rot2" x="432.0" y="167.0">sarrafo 2,5 × 7 cm</text><line class="chamada" x1="742.0" y1="238.0" x2="603.2" y2="237.2"/><text class="rot" x="599.2" y="241.2" text-anchor="end">pé 7 × 7 cm</text><line class="chamada" x1="728.0" y1="224.0" x2="603.2" y2="209.2"/><text class="rot" x="599.2" y="213.2" text-anchor="end">bloco de canto + sextavado</text></svg></div>
+  <div class="vista"><h3>2. Detalhe do canto, visto de frente</h3><svg viewBox="0 0 750 261" role="img" aria-label="Detalhe do canto visto de frente: tampo de 15 mm, saia de 7 cm logo abaixo, pé subindo por trás da saia até o tampo, 2 parafusos da saia no pé e parafusos inclinados da saia para o tampo"><rect class="tampo" x="170" y="40" width="560" height="15.0"/><rect class="pe" x="235.0" y="125.0" width="70" height="90.0"/><rect class="sarrafo" x="210" y="55.0" width="520" height="70"/><rect class="escondido" x="235.0" y="55.0" width="70" height="70"/><polyline class="quebra" points="235.0,211.0 246.7,219.0 258.3,211.0 270.0,219.0 281.7,211.0 293.3,219.0 305.0,211.0"/><circle class="furo" cx="258.1" cy="77.4" r="3.6"/><path class="cruz" d="M255.9,77.4h4.4M258.1,75.2v4.4"/><circle class="furo" cx="281.9" cy="104.0" r="3.6"/><path class="cruz" d="M279.7,104.0h4.4M281.9,101.8v4.4"/><line class="inclinado" x1="450.0" y1="112.4" x2="466.0" y2="44.5"/><circle class="cabeca" cx="450.0" cy="112.4" r="2.4"/><line class="inclinado" x1="610.0" y1="112.4" x2="626.0" y2="44.5"/><circle class="cabeca" cx="610.0" cy="112.4" r="2.4"/><line class="cota" x1="158" y1="40" x2="158" y2="55.0"/><text class="rot" x="152" y="53.0" text-anchor="end">tampo 15 mm</text><line class="cota" x1="198.0" y1="55.0" x2="198.0" y2="125.0"/><text class="rot" x="192.0" y="94.0" text-anchor="end">saia 7 cm</text><line class="cota" x1="170" y1="28" x2="210" y2="28"/><text class="rot2" x="190.0" y="23" text-anchor="middle">4 cm</text><line class="chamada" x1="305.0" y1="195.0" x2="345.0" y2="195.0"/><text class="rot" x="349.0" y="199.0">pé 7 × 7 cm (continua até o chão)</text><line class="chamada" x1="254.1" y1="80.4" x2="221.0" y2="155.0"/><text class="rot" x="217.0" y="159.0" text-anchor="end">2 parafusos da saia no pé</text><text class="rot2" x="217.0" y="173.0" text-anchor="end">em alturas desencontradas</text><text class="rot" x="540.0" y="143.0" text-anchor="middle">parafusos inclinados saia → tampo</text><text class="rot2" x="540.0" y="157.0" text-anchor="middle">pela face interna, ponta a 4–5 mm da superfície</text><line class="escondido-l" x1="170" y1="245.0" x2="198" y2="245.0"/><text class="rot2" x="204" y="249.0">parte escondida atrás da saia</text></svg></div>
+  <figcaption>Saia e encaixe dos pés · vista por baixo e detalhe do canto. <span class="nota">Esquema fora de escala.</span></figcaption>
+</figure>
+<p>Cada pé sobe pelo canto interno da saia até encostar no tampo. Ele fica preso por 2 parafusos em cada face da saia e por um bloco de canto com parafuso sextavado, que elimina o balanço.</p>
+
+<h2>Ordem de montagem</h2>
+<p>A montagem leva seis etapas e exige só furadeira, parafusadeira, cola e lixas. Faça furos-guia antes de cada parafuso para não rachar a madeira.</p>
+<ol>
+<li>Lixe e envernize o tampo e as prateleiras antes de montar, quando as peças estão soltas. Lixe com 120, 180 e 220 e aplique 3 demãos de verniz no tampo, lixando com 320 entre elas.</li>
+<li>Monte o requadro da saia com cola e parafusos: as peças de 57 cm ficam entre as de 212 cm, nas pontas e no meio.</li>
+<li>Vire o tampo de cabeça para baixo sobre uma superfície plana, centralize o requadro com 4 cm de recuo e cole e parafuse a saia no tampo a cada 20–25 cm. Os parafusos entram inclinados pela face interna da saia e a ponta deve parar a 4–5 mm da superfície do tampo.</li>
+<li>Encaixe cada pé no canto interno do requadro, encostado por baixo do tampo. Aplique cola e 2 parafusos por face da saia, em alturas desencontradas para não se cruzarem dentro do pé.</li>
+<li>Cole e parafuse um bloco de canto em cada canto da saia e aperte o parafuso sextavado do bloco até o pé, puxando o pé firme contra o canto.</li>
+<li>Envernize a saia e os pés, desvire a mesa e confira o nível.</li>
+</ol>
+
+<h2>Prateleiras</h2>
+<p>As prateleiras de 15 mm funcionam bem desde que os suportes (mãos-francesas, cremalheiras ou laterais) fiquem próximos o bastante.</p>
+<div class="tw"><table>
+<thead><tr><th>Uso</th><th>Distância máxima entre suportes</th><th>Suportes por prateleira de 2,2 m</th></tr></thead>
+<tbody>
+<tr><td>Livros e objetos pesados</td><td>70 cm</td><td>4</td></tr>
+<tr><td>Decoração e objetos leves</td><td>90 cm–1 m</td><td>3</td></tr>
+</tbody></table></div>
+<p>Apoiada só nas pontas, a prateleira enverga visivelmente mesmo vazia. Para usar menos suportes, cole um sarrafo de 2–3 cm de altura sob a borda frontal: ele aumenta muito a rigidez e quase não aparece.</p>
+
+<h2>Decisões em aberto</h2>
+<p><strong>Já decidido:</strong> espessura da chapa de 15 mm — vamos usar a chapa que já temos.</p>
+<p>Estes pontos mudam o resultado e valem ser decididos antes da compra, ou conversados com o marceneiro.</p>
+<ul class="tasks">
+<li><label><input type="checkbox"><span>Altura da saia: 7 cm (mais espaço para as pernas) ou 10 cm (mais rígida). Com 7 cm sobram cerca de 66 cm livres embaixo.</span></label></li>
+<li><label><input type="checkbox"><span>Pés: madeira 7 × 7 cm, madeira 5 × 5 cm ou pés metálicos com placa de fixação.</span></label></li>
+<li><label><input type="checkbox"><span>Mesa desmontável: se sim, trocar o parafuso sextavado por parafuso com porca-garra ou bucha metálica no pé.</span></label></li>
+<li><label><input type="checkbox"><span>Acabamento do tampo: verniz PU fosco (natural) ou laminado melamínico (fórmica), mais resistente a riscos e manchas.</span></label></li>
+<li><label><input type="checkbox"><span>Altura da mesa: 75 cm é o padrão; ajustar se algum de vocês for muito alto ou baixo.</span></label></li>
+<li><label><input type="checkbox"><span>Tipo de suporte das prateleiras e onde elas serão fixadas na parede.</span></label></li>
+</ul>
+</main>
+<!-- Vercel Speed Insights (só funciona no site publicado no Vercel) -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<!-- Vercel Web Analytics (só funciona no site publicado no Vercel) -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
