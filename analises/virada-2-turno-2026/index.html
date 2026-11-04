@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O que os totais do TSE dizem sobre a virada no 2º turno de 2026 · Matheus Castella</title>
+<meta name="description" content="O que dá e o que não dá para concluir sobre a virada do 2º turno de 2026 olhando só para os totais oficiais do TSE.">
+<meta name="theme-color" content="#e4e5e2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --desk: #e4e5e2;
+  --ink: #141518;
+  --muted: #4f5260;
+  --paper: #ffffff;
+  --line: #d2d3d2;
+  --spot: #ff9e7a;
+  --bar: #4f5260;
+  --track: #e4e5e2;
+  --inset: #f5f5f3;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+main { max-width: 784px; margin: 0 auto; padding: 40px 24px 56px; }
+.sheet { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 8px 32px 28px; margin-top: 20px; }
+@media (max-width: 560px) { main { padding: 24px 12px 40px; } .sheet { padding: 4px 18px 20px; border-radius: 14px; } }
+.back { font-family: var(--font-mono); font-size: 13px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+.back:hover { color: var(--ink); border-color: var(--ink); }
+.date { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+h1 { font-weight: 500; font-size: clamp(26px, 4.6vw, 36px); letter-spacing: -.025em; line-height: 1.15; margin: 28px 0 8px; text-wrap: balance; }
+h2 { font-weight: 500; font-size: 21px; letter-spacing: -.01em; margin: 48px 0 10px; }
+p { margin: 0 0 14px; max-width: 64ch; }
+.lead { font-size: 18px; color: var(--muted); }
+.notice { background: var(--inset); border: 1px solid var(--line); border-left: 4px solid var(--spot); border-radius: 10px; padding: 14px 18px; margin: 20px 0 8px; font-size: 15px; }
+.notice b { font-weight: 600; }
+.panel { background: var(--inset); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin: 16px 0; }
+.label { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; }
+.mono { font-family: var(--font-mono); }
+
+/* tabela */
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 460px; }
+th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 600; font-size: 13px; color: var(--muted); }
+td.diff { font-weight: 600; }
+
+/* barras */
+.bars { display: grid; gap: 10px; }
+.bar-row { display: grid; grid-template-columns: 210px 1fr 64px; align-items: center; gap: 12px; font-size: 14.5px; }
+.bar-track { position: relative; height: 22px; }
+.bar-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bar); border-radius: 0 4px 4px 0; }
+.bar-row:hover .bar-fill { background: var(--ink); }
+.bar-val { font-family: var(--font-mono); font-size: 13.5px; text-align: right; font-variant-numeric: tabular-nums; }
+.bar-total { display: flex; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 12px; padding-top: 10px; font-size: 14.5px; }
+@media (max-width: 560px) { .bar-row { grid-template-columns: 1fr 64px; } .bar-row .bar-track { grid-column: 1 / -1; grid-row: 2; } }
+
+/* simulador */
+.sim-q { font-size: 15px; margin-bottom: 10px; }
+.sim-ctl { display: flex; align-items: center; gap: 14px; margin: 6px 0 18px; }
+#x { flex: 1; accent-color: var(--ink); cursor: pointer; }
+#xout { font-family: var(--font-mono); font-size: 15px; min-width: 3.5em; text-align: right; }
+.hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hero > div { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.hero .n { font-size: 34px; font-weight: 500; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.hero .t { font-size: 13.5px; color: var(--muted); }
+.meter { position: relative; height: 10px; background: var(--track); border-radius: 5px; margin: 18px 0 6px; }
+.meter .band { position: absolute; top: 0; bottom: 0; background: #c9cacf; border-radius: 5px; }
+.meter .dot { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 2px var(--inset); }
+.meter-scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.sim-note { font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+ul.check { padding-left: 0; list-style: none; margin: 0; }
+ul.check li { padding-left: 26px; position: relative; margin-bottom: 10px; max-width: 64ch; }
+ul.check li::before { position: absolute; left: 0; font-family: var(--font-mono); font-weight: 600; }
+ul.yes li::before { content: "✓"; }
+ul.no li::before { content: "✕"; }
+main > ul:not(.check) { padding-left: 20px; margin: 0; }
+main > ul:not(.check) li { margin-bottom: 10px; max-width: 62ch; }
+
+footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+footer p { max-width: none; }
+footer a { color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← Matheus Castella</a>
+
+  <article class="sheet">
+  <h1>O que os totais do TSE dizem, e o que não dizem, sobre a virada no 2º turno de 2026</h1>
+  <p class="date"><time datetime="2026-11-03">3 de novembro de 2026</time></p>
+
+  <div class="notice">
+    Todos os números são os totais oficiais do TSE. A página mostra só o que esses totais permitem, e não permitem, concluir.
+  </div>
+
+  <p class="lead">Flávio Bolsonaro terminou o 1º turno na frente, e Lula venceu o 2º. Há quem diga que essa virada é matematicamente improvável. Dá para testar isso com os totais?</p>
+
+  <h2>Os números oficiais</h2>
+  <div class="panel">
+    <div class="tw">
+    <table>
+      <thead><tr><th>Em milhões de pessoas</th><th>1º turno</th><th>2º turno</th><th>Diferença</th></tr></thead>
+      <tbody>
+        <tr><td>Lula</td><td>53,88</td><td>64,26</td><td class="diff">+10,38</td></tr>
+        <tr><td>Flávio Bolsonaro</td><td>56,10</td><td>59,83</td><td class="diff">+3,72</td></tr>
+        <tr><td>Outros 10 candidatos</td><td>9,32</td><td>–</td><td class="diff">−9,32</td></tr>
+        <tr><td>Brancos e nulos</td><td>5,98</td><td>4,15</td><td class="diff">−1,82</td></tr>
+        <tr><td>Abstenção</td><td>33,47</td><td>30,51</td><td class="diff">−2,96</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td>158,75</td><td>158,75</td><td></td></tr></tfoot>
+    </table>
+    </div>
+  </div>
+
+  <h2>A conta fecha</h2>
+  <p>Entre os turnos, os dois candidatos somaram 14,10 milhões de votos a mais. Esses votos só podem ter saído dos grupos que diminuíram: quem votou em outros candidatos, quem votou branco ou nulo e quem não foi votar.</p>
+
+  <div class="panel">
+    <p class="label">O que os dois ganharam</p>
+    <div class="bars" role="list">
+      <div class="bar-row" role="listitem" title="Lula: +10,38 milhões"><span>Lula</span><div class="bar-track"><div class="bar-fill" style="width:73.6%"></div></div><span class="bar-val">10,38</span></div>
+      <div class="bar-row" role="listitem" title="Flávio Bolsonaro: +3,72 milhões"><span>Flávio Bolsonaro</span><div class="bar-track"><div class="bar-fill" style="width:26.4%"></div></div><span class="bar-val">3,72</span></div>
+    </div>
+    <div class="bar-total"><span>Total</span><span class="mono">14,10</span></div>
+
+    <p class="label" style="margin-top:28px">De onde podem ter vindo</p>
+    <div class="bars" role="list">
+      <div class="bar-row" role="listitem" title="Eleitores de outros candidatos: 9,32 milhões"><span>Eleitores de outros candidatos</span><div class="bar-track"><div class="bar-fill" style="width:66.1%"></div></div><span class="bar-val">9,32</span></div>
+      <div class="bar-row" role="listitem" title="Brancos e nulos a menos: 1,82 milhão"><span>Brancos e nulos a menos</span><div class="bar-track"><div class="bar-fill" style="width:12.9%"></div></div><span class="bar-val">1,82</span></div>
+      <div class="bar-row" role="listitem" title="Abstenção a menos: 2,96 milhões"><span>Abstenção a menos</span><div class="bar-track"><div class="bar-fill" style="width:21%"></div></div><span class="bar-val">2,96</span></div>
+    </div>
+    <div class="bar-total"><span>Total</span><span class="mono">14,10</span></div>
+  </div>
+
+  <p>Então a virada é aritmeticamente possível. A pergunta que sobra é outra: <b>de quanto de cada grupo Lula precisaria</b>, e se isso é plausível.</p>
+
+  <h2>De quanto Lula precisaria</h2>
+  <p>O grupo decisivo são os 9,32 milhões de eleitores de outros candidatos. Quanto Lula precisaria deles depende de para onde foram os 4,78 milhões que voltaram a votar ou deixaram de votar branco ou nulo. Mova o controle para testar.</p>
+
+  <div class="panel">
+    <p class="sim-q">Dos 4,78 milhões que voltaram a votar ou deixaram de votar branco ou nulo, quanto foi para Lula?</p>
+    <div class="sim-ctl">
+      <input type="range" id="x" min="23" max="100" step="1" value="74" aria-describedby="simres">
+      <output id="xout" for="x">74%</output>
+    </div>
+    <p class="label">Então, dos eleitores de outros candidatos, seriam necessários</p>
+    <div class="hero" id="simres" aria-live="polite">
+      <div><div class="n" id="lo">74%</div><div class="t">para Lula</div></div>
+      <div><div class="n" id="fo">26%</div><div class="t">para Flávio Bolsonaro</div></div>
+    </div>
+    <div class="meter" aria-hidden="true"><div class="band" style="left:60%;right:0"></div><div class="dot" id="dot"></div></div>
+    <div class="meter-scale" aria-hidden="true"><span>0%</span><span>60%</span><span>100%</span></div>
+    <p class="sim-note">A faixa cinza mostra todos os casos possíveis: <b>Lula precisaria de 60% a 100%</b> dos eleitores de outros candidatos. O valor inicial é o caso em que todos os grupos se dividiram na mesma proporção, com cerca de três em cada quatro votos para Lula.</p>
+  </div>
+
+  <div class="notice">
+    <b>Esses números são saldos, não pessoas.</b> A conta supõe que ninguém trocou de lado entre Lula e Flávio e que todo mundo que votou no 1º turno votou também no 2º. Na prática houve trocas nos dois sentidos, e elas mudam esses percentuais. Por exemplo, se parte de quem votou em Flávio no 1º turno votou em Lula no 2º, Lula precisaria de menos dos outros candidatos.
+  </div>
+
+  <h2>O que dá para concluir</h2>
+  <ul class="check yes">
+    <li>A virada não é matematicamente impossível. A conta entre os dois turnos fecha.</li>
+    <li>Pelos saldos, Lula precisaria da maior parte dos eleitores de outros candidatos: de 60% a 100%, conforme a hipótese.</li>
+  </ul>
+
+  <h2>O que não dá para concluir</h2>
+  <ul class="check no">
+    <li>Se essa distribuição é provável ou improvável. Os totais não dizem como cada grupo votou, porque o voto é secreto.</li>
+  </ul>
+
+  <h2>O que ajudaria a responder</h2>
+  <p>Os totais nacionais juntam o país inteiro num número só. Duas fontes mostram mais de perto para onde foi cada grupo:</p>
+  <ul>
+    <li><b>Resultados por seção eleitoral</b>, que o TSE publica nos dados abertos. Eles permitem comparar, em cada lugar, os votos dos outros candidatos no 1º turno com quanto Lula e Flávio cresceram no 2º.</li>
+    <li><b>Pesquisas feitas entre os dois turnos</b>, que perguntam a quem votou em outros candidatos em quem pretende votar.</li>
+  </ul>
+
+  <footer>
+    <p>Fonte: TSE, resultados oficiais (resultados.tse.jus.br), 1º turno em 04/10/2026 e 2º turno em 25/10/2026, consultados em 03/11/2026. Números em milhões, arredondados; as contas usam os valores exatos.</p>
+    <p>Feito por <a href="/">Matheus Castella</a>.</p>
+  </footer>
+  </article>
+</main>
+
+<script>
+(function(){
+  // valores exatos do TSE, em milhões
+  const LULA_GAIN = 10.376694, FLAVIO_GAIN = 3.721538;
+  const OUTROS = 9.316747, POOL = 1.821246 + 2.960239; // brancos/nulos a menos + abstenção a menos
+  const x = document.getElementById("x"), xout = document.getElementById("xout");
+  const lo = document.getElementById("lo"), fo = document.getElementById("fo"), dot = document.getElementById("dot");
+  const pct = v => Math.round(v * 100) + "%";
+  function update(){
+    const share = +x.value / 100;
+    const l = (LULA_GAIN - share * POOL) / OUTROS;
+    const f = (FLAVIO_GAIN - (1 - share) * POOL) / OUTROS;
+    xout.textContent = x.value + "%";
+    lo.textContent = pct(Math.min(1, l));
+    fo.textContent = pct(Math.max(0, f));
+    dot.style.left = (Math.min(1, l) * 100) + "%";
+    x.setAttribute("aria-valuetext", x.value + "% para Lula; Lula precisaria de " + pct(Math.min(1, l)) + " dos eleitores de outros candidatos");
+  }
+  x.addEventListener("input", update);
+  update();
+})();
+</script>
+</body>
+</html>
